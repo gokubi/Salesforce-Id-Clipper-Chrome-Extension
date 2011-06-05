@@ -12,5 +12,6 @@
   },
   "permissions" : [
     "tabs"
-  ]
+  ],
+  "icons": { "128": "clipper_128.png" },
 }
