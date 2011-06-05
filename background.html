@@ -26,7 +26,7 @@
 			bg = chrome.extension.getBackgroundPage();
 			clipboardholder= bg.document.getElementById("clipboardholder");
 			clipboardholder.style.display = "block";
-			clipboardholder.value = tab.url.match(/https\:\/\/\w\w\w\.salesforce\.com\/(\w{15})/)[1];;
+			clipboardholder.value = tab.url.match(/https\:\/\/.*\.salesforce\.com\/(\w{15})/)[1];;
 			clipboardholder.select();
 			bg.document.execCommand("Copy");
 			clipboardholder.style.display = "none";
