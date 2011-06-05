@@ -10,7 +10,7 @@
 		// Called when the url of a tab changes.
 		function checkForValidUrl(tabId, changeInfo, tab) {
 			// If it's a salesforce database URL and contains an id
-			if ((tab.url.indexOf('salesforce') > -1) && (tab.url.match(/https\:\/\/\w*\.salesforce\.com\/(\w{15})/)[1] != null)) {
+			if ((tab.url.indexOf('salesforce') > -1) && (tab.url.match(/https\:\/\/.*\.salesforce\.com\/(\w{15})/)[1] != null)) {
 				// ... show the page action.
 				chrome.pageAction.show(tabId);
 				chrome.pageAction.setIcon({path: "clipper.png",
