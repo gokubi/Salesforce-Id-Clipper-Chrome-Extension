@@ -1,0 +1,16 @@
+
+{
+  "name": "Salesforce.com Id Clipper",
+  "version": "1.0",
+  "description": "Grabs the ID of the current Salesforce.com record and drops it in your clipboard",
+  
+  "background_page": "background.html",
+  "page_action" :
+  {
+    "default_icon" : "clipper.png",
+    "default_title" : "Clip this Id!"
+  },
+  "permissions" : [
+    "tabs"
+  ]
+}
