@@ -2,7 +2,11 @@ This is a Chrome extension that works with Salesforce.com.
 
 If you are on a Salesforce.com record page, you can click the scissors icon to clip the Id to your clipboard. The icon turns green when you successfully clip the Id.
 
-To install:
+To install from Chrome Store:
+
+https://chrome.google.com/webstore/detail/hfiffenhnefppjhloglpebefjlbhoeai
+
+To install unpackaged:
 
 1. Download the source to your computer
 2. Go to Chrome
