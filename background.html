@@ -7,10 +7,15 @@
 <html>
 	<head>
 		<script>
+
+                BASIC_RE = /https\:\/\/.*\.salesforce\.com\/(\w{15})/ ;
+                VFORCE_RE = /https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15}).*/ ;
+
 		// Called when the url of a tab changes.
 		function checkForValidUrl(tabId, changeInfo, tab) {
 			// If it's a salesforce database URL and contains an id
-			if ((tab.url.indexOf('salesforce') > -1) && (tab.url.match(/https\:\/\/.*\.salesforce\.com\/(\w{15})/)[1] != null)) {
+			if ((tab.url.indexOf('salesforce') > -1) && 
+                             ((tab.url.match(BASIC_MATCH)[1] != null) || (tab.url.match(VFORCE_MATCH)[1] != null))) {
 				// ... show the page action.
 				chrome.pageAction.show(tabId);
 				chrome.pageAction.setIcon({path: "clipper.png",
@@ -26,7 +31,8 @@
 			bg = chrome.extension.getBackgroundPage();
 			clipboardholder= bg.document.getElementById("clipboardholder");
 			clipboardholder.style.display = "block";
-			clipboardholder.value = tab.url.match(/https\:\/\/.*\.salesforce\.com\/(\w{15})/)[1];;
+			clipboardholder.value = tab.url.match(BASIC_RE)[1];;
+                        if (!clipboardholder.value) clipboardholder.value = tab.url.match(VFORCE_RE)[1];
 			clipboardholder.select();
 			bg.document.execCommand("Copy");
 			clipboardholder.style.display = "none";
@@ -48,7 +54,8 @@
 		bg = chrome.extension.getBackgroundPage();
 			clipboardholder= bg.document.getElementById("clipboardholder");
 			clipboardholder.style.display = "block";
-			clipboardholder.value = info.linkUrl.match(/https\:\/\/.*\.salesforce\.com\/(\w{15})/)[1];;
+			clipboardholder.value = info.linkUrl.match(BASIC_RE)[1];;
+                        if (!clipboardholder.value) clipboardholder.value = tab.url.match(VFORCE_RE)[1];
 			clipboardholder.select();
 			bg.document.execCommand("Copy");
 			clipboardholder.style.display = "none";
@@ -60,7 +67,8 @@
 		bg = chrome.extension.getBackgroundPage();
 			clipboardholder= bg.document.getElementById("clipboardholder");
 			clipboardholder.style.display = "block";
-			clipboardholder.value = info.linkUrl.match(/(https\:\/\/.*\.salesforce\.com\/\w{15})/)[1];;
+			clipboardholder.value = info.linkUrl.match(BASIC_RE)[1];;
+                        if (!clipboardholder.value) clipboardholder.value = tab.url.match(VFORCE_RE)[1];
 			clipboardholder.select();
 			bg.document.execCommand("Copy");
 			clipboardholder.style.display = "none";
