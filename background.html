@@ -9,11 +9,13 @@
 		<script>
 
         ID_RE = [
-			/https\:\/\/.*\.salesforce\.com\/(\w{15})/, 		// Matches id for a standard salesforce page
-			/https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15})/,  // Matches id for an apex/visualforce page
+			/https\:\/\/.*\.salesforce\.com\/(\w{18})/,				// Matches id-18 for a standard salesforce page
+			/https\:\/\/.*\.salesforce\.com\/(\w{15})/,				// Matches id-15 for a standard salesforce page
+			/https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15})/,	// Matches id for an apex/visualforce page
 		];
         LINK_RE = [
-			/(https\:\/\/.*\.salesforce\.com\/\w{15})/,		// Matches link for a standard salesforce page
+			/(https\:\/\/.*\.salesforce\.com\/\w{18})/,				// Matches link (id-18) for a standard salesforce page
+			/(https\:\/\/.*\.salesforce\.com\/\w{15})/,				// Matches link (id-15) for a standard salesforce page
 			/(https\:\/\/.*\.salesforce\.com\/apex\/.*id=\w{15})/,	// Matches link for an apex/visualforce page
         ];
 
@@ -29,39 +31,45 @@
 		};
 		
 		// Extract the ID from a URL and copy to clipboard
-		function extractCopyID(url, regex_set) {
-			var copy_me;
+		function extractID(url, regex_set) {
 			if (!regex_set) regex_set = ID_RE;
 			for (var i in regex_set) {
 				var match = url.match(regex_set[i]);
 				if (match) {
-					copy_me = match[1];
-					break;
+					return match[1];
+					break; // Even if 'return' is removed, processing should still stop;
 				}
 			}
-			if (copy_me) {				
-				var bg = chrome.extension.getBackgroundPage();
-				var clipboardholder = bg.document.getElementById("clipboardholder");
-				clipboardholder.style.display = "block";
-				clipboardholder.value = copy_me;
-				clipboardholder.select();
-				bg.document.execCommand("Copy");
-				clipboardholder.style.display = "none";
-			}
-		}	
-			
-		// Extract a link from a URL and copy to clipboard (delegates to extractCopyID
-		function extractCopyLink(url) {
-			extractCopyID(url, LINK_RE);
-			chrome.pageAction.setIcon({path: "clippered.png", tabId: tab.id});
+			return false;
 		}
+			
+		// Extract a link from a URL (delegates to extractID)
+		function extractLink(url) {
+			return extractID(url, LINK_RE);
+		}
+		
+		function copyToClipboard(copy_me) {
+			var bg = chrome.extension.getBackgroundPage();
+			var clipboardholder = bg.document.getElementById("clipboardholder");
+			clipboardholder.style.display = "block";
+			clipboardholder.value = copy_me;
+			clipboardholder.select();
+			bg.document.execCommand("Copy");
+			clipboardholder.style.display = "none";
+			return true;
+		}	
 
 		// Listen for any changes to the URL of any tab.
 		chrome.tabs.onUpdated.addListener(checkForValidUrl);
       
 		// Called when the user clicks on the page action.
 		chrome.pageAction.onClicked.addListener(function(tab) {
-			extractCopyID(tab.url);
+			var id = extractID(tab.url);
+			if (id) {
+				copyToClipboard(id);
+				chrome.pageAction.setIcon({path: "clippered.png", tabId: tab.id});
+			}
+			
 		});
 		
 		chrome.contextMenus.create(
@@ -73,12 +81,14 @@
   		
 		// copy Id only
 		function onIdCopyClick(info, tab) {
-			extractCopyID(info.linkUrl);
+			var id = extractID(info.linkUrl);
+			if (id) copyToClipboard(id);
 		}
 		
 		// copy clean URL
 		function onCleanCopyClick(info, tab) {
-			extractCopyLink(info.linkUrl);
+			var link = extractLink(info.linkUrl);
+			if (link) copyToClipboard(link);
 		}
 		
 		</script>
