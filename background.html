@@ -9,6 +9,7 @@
 		<script>
 
                 BASIC_RE = /https\:\/\/.*\.salesforce\.com\/(\w{15})/ ;
+                LINK_RE = /(https\:\/\/.*\.salesforce\.com\/(\w{15})/ ;
                 VFORCE_RE = /https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15}).*/ ;
 
 		// Called when the url of a tab changes.
@@ -67,7 +68,7 @@
 		bg = chrome.extension.getBackgroundPage();
 			clipboardholder= bg.document.getElementById("clipboardholder");
 			clipboardholder.style.display = "block";
-			clipboardholder.value = info.linkUrl.match(BASIC_RE)[1];;
+			clipboardholder.value = info.linkUrl.match(LINK_RE)[1];;
                         if (!clipboardholder.value) clipboardholder.value = tab.url.match(VFORCE_RE)[1];
 			clipboardholder.select();
 			bg.document.execCommand("Copy");
