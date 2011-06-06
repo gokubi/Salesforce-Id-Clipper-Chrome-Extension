@@ -1,20 +1,26 @@
 This is a Chrome extension that works with Salesforce.com.
 
-If you are on a Salesforce.com record page, you can click the scissors icon to clip the Id to your clipboard. The icon turns green when you successfully clip the Id.
+If you are on a Salesforce.com record page, that is a page where the Salesforce.com URL conatins a
+record Id, you can click the scissors icon to clip the Id to your clipboard. The icon turns green
+when you successfully clip the Id.
+
+You may also right click any link to a Salesforce.com record URL on any webpage and do two actions:
+
+1. Clip the Id, just as you would from a record page
+
+2. Get a clean record URL, dropping any parameters after the Id, like search position
+
+Now works with VF pages with an id on the querystring.
 
 To install from Chrome Store:
 
 https://chrome.google.com/webstore/detail/hfiffenhnefppjhloglpebefjlbhoeai
 
-To install unpackaged:
-
-1. Download the source to your computer
-2. Go to Chrome
-3. Window > Extensions
-4. Click the + next to Developer Mode
-5. Load unpacked extension
-6. Browse to the downloaded directory
-
 Source code is on github:
 
 https://github.com/gokubi/Salesforce-Id-Clipper-Chrome-Extension
+
+To install unpackaged:
+
+1. Download the source to your computer 2. Go to Chrome 3. Window > Extensions 4. Click the + next
+to Developer Mode 5. Load unpacked extension 6. Browse to the downloaded directory
