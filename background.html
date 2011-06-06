@@ -33,6 +33,40 @@
 			chrome.pageAction.setIcon({path: "clippered.png",
                                tabId: tab.id});
 		});
+		
+		
+		chrome.contextMenus.create(
+  			{"title": "Copy Salesforce Id", "contexts" : ["link"],"onclick": onIdCopyClick}
+  		)
+  		chrome.contextMenus.create(
+  			{"title": "Copy Clean Salesforce URL", "contexts" : ["link"],"onclick": onCleanCopyClick}
+  		)
+  		
+  
+	// copy Id only
+	function onIdCopyClick(info, tab) {
+		bg = chrome.extension.getBackgroundPage();
+			clipboardholder= bg.document.getElementById("clipboardholder");
+			clipboardholder.style.display = "block";
+			clipboardholder.value = info.linkUrl.match(/https\:\/\/.*\.salesforce\.com\/(\w{15})/)[1];;
+			clipboardholder.select();
+			bg.document.execCommand("Copy");
+			clipboardholder.style.display = "none";
+
+	}
+	
+	// copy clean URL
+	function onCleanCopyClick(info, tab) {
+		bg = chrome.extension.getBackgroundPage();
+			clipboardholder= bg.document.getElementById("clipboardholder");
+			clipboardholder.style.display = "block";
+			clipboardholder.value = info.linkUrl.match(/(https\:\/\/.*\.salesforce\.com\/\w{15})/)[1];;
+			clipboardholder.select();
+			bg.document.execCommand("Copy");
+			clipboardholder.style.display = "none";
+
+	}
+		
 		</script>
 	</head>
 	<body>
