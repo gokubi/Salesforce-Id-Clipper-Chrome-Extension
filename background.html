@@ -23,7 +23,7 @@
 		function checkForValidUrl(tabId, changeInfo, tab) {
 			// If it's a salesforce database URL and contains an id
 			if ((tab.url.indexOf('salesforce') > -1) && 
-                             ((tab.url.match(ID_RE[0]) != null) || (tab.url.match(ID_RE[1]) != null))) {
+                             ((tab.url.match(ID_RE[1]) != null) || (tab.url.match(ID_RE[2]) != null))) {
 				// ... show the page action.
 				chrome.pageAction.show(tabId);
 				chrome.pageAction.setIcon({path: "clipper.png", tabId: tab.id});
