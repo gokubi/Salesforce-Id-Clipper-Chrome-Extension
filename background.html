@@ -8,38 +8,61 @@
 	<head>
 		<script>
 
-                BASIC_RE = /https\:\/\/.*\.salesforce\.com\/(\w{15})/ ;
-                VFORCE_RE = /https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15}).*/ ;
+        ID_RE = [
+			/https\:\/\/.*\.salesforce\.com\/(\w{15})/, 		// Matches id for a standard salesforce page
+			/https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15})/,  // Matches id for an apex/visualforce page
+		];
+        LINK_RE = [
+			/(https\:\/\/.*\.salesforce\.com\/\w{15})/,		// Matches link for a standard salesforce page
+			/(https\:\/\/.*\.salesforce\.com\/apex\/.*id=\w{15})/,	// Matches link for an apex/visualforce page
+        ];
 
 		// Called when the url of a tab changes.
 		function checkForValidUrl(tabId, changeInfo, tab) {
 			// If it's a salesforce database URL and contains an id
 			if ((tab.url.indexOf('salesforce') > -1) && 
-                             ((tab.url.match(BASIC_MATCH)[1] != null) || (tab.url.match(VFORCE_MATCH)[1] != null))) {
+                             ((tab.url.match(ID_RE[0]) != null) || (tab.url.match(ID_RE[1]) != null))) {
 				// ... show the page action.
 				chrome.pageAction.show(tabId);
-				chrome.pageAction.setIcon({path: "clipper.png",
-                               tabId: tab.id});
+				chrome.pageAction.setIcon({path: "clipper.png", tabId: tab.id});
 			}
 		};
+		
+		// Extract the ID from a URL and copy to clipboard
+		function extractCopyID(url, regex_set) {
+			var copy_me;
+			if (!regex_set) regex_set = ID_RE;
+			for (var i in regex_set) {
+				var match = url.match(regex_set[i]);
+				if (match) {
+					copy_me = match[1];
+					break;
+				}
+			}
+			if (copy_me) {				
+				var bg = chrome.extension.getBackgroundPage();
+				var clipboardholder = bg.document.getElementById("clipboardholder");
+				clipboardholder.style.display = "block";
+				clipboardholder.value = copy_me;
+				clipboardholder.select();
+				bg.document.execCommand("Copy");
+				clipboardholder.style.display = "none";
+			}
+		}	
+			
+		// Extract a link from a URL and copy to clipboard (delegates to extractCopyID
+		function extractCopyLink(url) {
+			extractCopyID(url, LINK_RE);
+			chrome.pageAction.setIcon({path: "clippered.png", tabId: tab.id});
+		}
 
 		// Listen for any changes to the URL of any tab.
 		chrome.tabs.onUpdated.addListener(checkForValidUrl);
       
 		// Called when the user clicks on the page action.
 		chrome.pageAction.onClicked.addListener(function(tab) {
-			bg = chrome.extension.getBackgroundPage();
-			clipboardholder= bg.document.getElementById("clipboardholder");
-			clipboardholder.style.display = "block";
-			clipboardholder.value = tab.url.match(BASIC_RE)[1];;
-                        if (!clipboardholder.value) clipboardholder.value = tab.url.match(VFORCE_RE)[1];
-			clipboardholder.select();
-			bg.document.execCommand("Copy");
-			clipboardholder.style.display = "none";
-			chrome.pageAction.setIcon({path: "clippered.png",
-                               tabId: tab.id});
+			extractCopyID(tab.url);
 		});
-		
 		
 		chrome.contextMenus.create(
   			{"title": "Copy Salesforce Id", "contexts" : ["link"],"onclick": onIdCopyClick}
@@ -48,32 +71,15 @@
   			{"title": "Copy Clean Salesforce URL", "contexts" : ["link"],"onclick": onCleanCopyClick}
   		)
   		
-  
-	// copy Id only
-	function onIdCopyClick(info, tab) {
-		bg = chrome.extension.getBackgroundPage();
-			clipboardholder= bg.document.getElementById("clipboardholder");
-			clipboardholder.style.display = "block";
-			clipboardholder.value = info.linkUrl.match(BASIC_RE)[1];;
-                        if (!clipboardholder.value) clipboardholder.value = tab.url.match(VFORCE_RE)[1];
-			clipboardholder.select();
-			bg.document.execCommand("Copy");
-			clipboardholder.style.display = "none";
-
-	}
-	
-	// copy clean URL
-	function onCleanCopyClick(info, tab) {
-		bg = chrome.extension.getBackgroundPage();
-			clipboardholder= bg.document.getElementById("clipboardholder");
-			clipboardholder.style.display = "block";
-			clipboardholder.value = info.linkUrl.match(BASIC_RE)[1];;
-                        if (!clipboardholder.value) clipboardholder.value = tab.url.match(VFORCE_RE)[1];
-			clipboardholder.select();
-			bg.document.execCommand("Copy");
-			clipboardholder.style.display = "none";
-
-	}
+		// copy Id only
+		function onIdCopyClick(info, tab) {
+			extractCopyID(info.linkUrl);
+		}
+		
+		// copy clean URL
+		function onCleanCopyClick(info, tab) {
+			extractCopyLink(info.linkUrl);
+		}
 		
 		</script>
 	</head>
@@ -81,4 +87,3 @@
 		<textarea id="clipboardholder" style="display:none;"></textarea>
 	</body>
 </html>
-
