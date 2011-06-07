@@ -1,8 +1,7 @@
 This is a Chrome extension that works with Salesforce.com.
 
 If you are on a Salesforce.com record page, that is a page where the Salesforce.com URL conatins a
-record Id, you can click the scissors icon to clip the Id to your clipboard. The icon turns green
-when you successfully clip the Id.
+record Id, you can click the scissors icon to clip the Id to your clipboard. The icon turns green when you successfully clip the Id.
 
 You may also right click any link to a Salesforce.com record URL on any webpage and do two actions:
 
