@@ -10,7 +10,7 @@ You may also right click any link to a Salesforce.com record URL on any webpage 
 
 2. Get a clean record URL, dropping any parameters after the Id, like search position
 
-Now works with VF pages with an id on the querystring.
+Now works with VF pages with an id on the querystring. Thanks to boxfoot for the contributions!
 
 To install from Chrome Store:
 
