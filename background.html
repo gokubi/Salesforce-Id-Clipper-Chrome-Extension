@@ -68,7 +68,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		function setIds(currentId) {
 			id = currentId;
-			if(id.length() == 18) {
+			if(id.length == longIdLength) {
 				id18 = id;
 			} else {
 			
@@ -113,14 +113,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		chrome.pageAction.onClicked.addListener(function(tab) {
 			extractID(tab.url);
 			if (id) {
-				//odd clicks copy 15, even copy 18
-				if ((clickCount % 2) >0){
+				//1 clicks copy 15, 2 copy 18, 3 copy clean link
+				if ((clickCount % 3) == 1){
 					copyToClipboard(id);
 					chrome.pageAction.setIcon({path: "clippered.png", tabId: tab.id});
-				} else {
+				} else if ((clickCount % 3) == 2){
 					copyToClipboard(id18);
 					chrome.pageAction.setIcon({path: "clippered18.png", tabId: tab.id});
-				}				
+				} else {
+					copyToClipboard(extractLink(tab.url));
+					chrome.pageAction.setIcon({path: "clipperedLink.png", tabId: tab.id});
+				}
 			}
 			clickCount++;
 		});
