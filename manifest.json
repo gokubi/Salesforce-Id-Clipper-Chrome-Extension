@@ -1,7 +1,7 @@
 
 {
   "name": "Salesforce.com Id Clipper",
-  "version": "1.7",
+  "version": "1.8",
   "description": "Helps you get Salesforce.com Ids from records and links to your clipboard",
   
   "background_page": "background.html",
