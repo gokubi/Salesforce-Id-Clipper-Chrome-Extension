@@ -15,7 +15,7 @@ and do two actions:
 2. Get a clean record URL, dropping any parameters after the Id, like search
 position
 
-Now works with VF pages with an id on the querystring.
+Now works with VF pages with an id on the querystring, and User profile pages.
 
 Thanks to boxfoot and Jeff Douglas for code contributions!
 

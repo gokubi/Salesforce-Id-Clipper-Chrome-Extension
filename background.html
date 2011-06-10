@@ -24,18 +24,21 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			/https\:\/\/.*\.salesforce\.com\/(\w{18})/,				// Matches id-18 for a standard salesforce page
 			/https\:\/\/.*\.salesforce\.com\/(\w{15})/,				// Matches id-15 for a standard salesforce page
 			/https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15})/,	// Matches id for an apex/visualforce page
+			/https\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=(\w{15})/, // Matches id for a User profile
+			
 		];
         LINK_RE = [
 			/(https\:\/\/.*\.salesforce\.com\/\w{18})/,				// Matches link (id-18) for a standard salesforce page
 			/(https\:\/\/.*\.salesforce\.com\/\w{15})/,				// Matches link (id-15) for a standard salesforce page
 			/(https\:\/\/.*\.salesforce\.com\/apex\/.*id=\w{15})/,	// Matches link for an apex/visualforce page
+			/(https\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=\w{15})/, // Matches id for a User profile
         ];
 
 		// Called when the url of a tab changes.
 		function checkForValidUrl(tabId, changeInfo, tab) {
 			// If it's a salesforce database URL and contains an id
 			if ((tab.url.indexOf('salesforce') > -1) && 
-                             ((tab.url.match(ID_RE[1]) != null) || (tab.url.match(ID_RE[2]) != null))) {
+                             ((tab.url.match(ID_RE[1]) != null) || (tab.url.match(ID_RE[2]) != null) || (tab.url.match(ID_RE[3]) != null))) {
 				// ... show the page action.
 				chrome.pageAction.show(tabId);
 				chrome.pageAction.setIcon({path: "clipper.png", tabId: tab.id});
