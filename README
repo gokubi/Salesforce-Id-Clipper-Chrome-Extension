@@ -1,38 +1,49 @@
+<h1>Salesforce.com Id Clipper</h1>
+<p>
 This is a Chrome Extension that works with Salesforce.com.
-
+</p>
+<p>
 If you are on a Salesforce.com record page, that is a page where the Salesforce.com
 URL conatins a record Id, click the scissors icon once to clip the Id to your
 clipboard. Clip it again and you'll get the 18 character verison of the id. Click
 again to get a cleaned version of the URL in the address bar. The icon turns green
 when you successfully clip the Id, and shows an 18 when you get the 18 character version 
 and 'Link' when you get the link.
-
+</p>
+<p>
 You may also right click any link to a Salesforce.com record URL on any webpage
 and do two actions:
-
-1. Clip the Id (15 or 18 characters), just as you would from a record page
-
-2. Get a clean record URL, dropping any parameters after the Id, like search
-position
-
+</p>
+<ol>
+<li>Clip the Id (15 or 18 characters), just as you would from a record page</li>
+<li>Get a clean record URL, dropping any parameters after the Id, like search position</li>
+</ol>
+<p>
 Now works with VF pages with an id on the querystring, and User profile pages.
+</p>
+<h2>Contributors</h2>
+<p>
+Thanks go out to boxfoot and Jeff Douglas!
+</p>
 
-Thanks to boxfoot and Jeff Douglas for code contributions!
-
-To install from Chrome Store:
-
+<h2>To install from Chrome Store</h2>
+<p>
 https://chrome.google.com/webstore/detail/hfiffenhnefppjhloglpebefjlbhoeai
+</p>
 
-Source code is on github:
 
+<h2>Source code</h2>
+<p>
 https://github.com/gokubi/Salesforce-Id-Clipper-Chrome-Extension
-
+</p>
+<p>
 To install unpackaged:
-
-1. Download the source to your computer
-2. Go to Chrome
-3. Window > Extensions
-4. Click the + next
-to Developer Mode
-5. Load unpacked extension
-6. Browse to the downloaded directory
+</p>
+<ol>
+<li>Download the source to your computer</li>
+<li>Open to Chrome</li>
+<li>Window > Extensions</li>
+<li>Click the + next to Developer Mode</li>
+<li>Load unpacked extension</li>
+<li>Browse to the downloaded directory</li>
+</ol>
