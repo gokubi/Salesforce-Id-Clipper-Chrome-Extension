@@ -21,17 +21,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		var clickCount = 1;
 
         ID_RE = [
-			/[https?]\:\/\/.*\.salesforce\.com\/(\w{18})/,												// Matches id-18 for a standard salesforce page
-			/[https?]\:\/\/.*\.salesforce\.com\/(\w{15})/,												// Matches id-15 for a standard salesforce page
-			/[https?]\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15})/,									// Matches id for an apex/visualforce page
-			/[https?]\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=(\w{15})/, 	// Matches id for a User profile
+			/https\:\/\/.*\.salesforce\.com\/(\w{18})/,												// Matches id-18 for a standard salesforce page
+			/https\:\/\/.*\.salesforce\.com\/(\w{15})/,												// Matches id-15 for a standard salesforce page
+			/https\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15})/,									// Matches id for an apex/visualforce page
+			/https\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=(\w{15})/, 	// Matches id for a User profile
 			
 		];
         LINK_RE = [
-			/([https?]\:\/\/.*\.salesforce\.com\/\w{18})/,												// Matches link (id-18) for a standard salesforce page
-			/([https?]\:\/\/.*\.salesforce\.com\/\w{15})/,												// Matches link (id-15) for a standard salesforce page
-			/([https?]\:\/\/.*\.salesforce\.com\/apex\/.*id=\w{15})/,									// Matches link for an apex/visualforce page
-			/([https?]\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=\w{15})/, 	// Matches id for a User profile
+			/(https\:\/\/.*\.salesforce\.com\/\w{18})/,												// Matches link (id-18) for a standard salesforce page
+			/(https\:\/\/.*\.salesforce\.com\/\w{15})/,												// Matches link (id-15) for a standard salesforce page
+			/(https\:\/\/.*\.salesforce\.com\/apex\/.*id=\w{15})/,									// Matches link for an apex/visualforce page
+			/(https\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=\w{15})/, 	// Matches id for a User profile
         ];
 
 		// Called when the url of a tab changes.
