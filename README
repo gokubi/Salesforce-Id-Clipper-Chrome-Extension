@@ -32,7 +32,6 @@ To install unpackaged:
 1. Download the source to your computer
 2. Go to Chrome
 3. Window > Extensions
-4. Click the + next
-to Developer Mode
+4. Click the + next to Developer Mode
 5. Load unpacked extension
 6. Browse to the downloaded directory
