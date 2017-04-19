@@ -1,4 +1,4 @@
-This is a Chrome Extension that works with Salesforce.com. *Now updated to work with lightning!*
+This is a Chrome Extension that works with Salesforce.com. *Now updated to work with lightning and Communities!*
 
 If you are on a Salesforce.com record page, that is a page where the Salesforce.com
 URL conatins a record Id: 
@@ -17,6 +17,7 @@ and do two actions:
 * Get a clean record URL, dropping any parameters after the Id, like search position
 
 * Works with Lightning
+* Works with Communities
 * Works with VF pages with an id on the querystring, and User profile pages.
 * Thanks to boxfoot and Jeff Douglas for code contributions!
 

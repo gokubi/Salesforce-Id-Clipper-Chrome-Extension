@@ -18,19 +18,20 @@ var cleanLink = "";
 var clickCount = 1;
 
 ID_RE = [
-	/http[s]?\:\/\/.*\.salesforce\.com\/(\w{18})/,												// Matches id-18 for a standard salesforce page
-	/http[s]?\:\/\/.*\.salesforce\.com\/(\w{15})/,												// Matches id-15 for a standard salesforce page
-	/http[s]?\:\/\/.*\.salesforce\.com\/apex\/.*id=(\w{15})/,									// Matches id for an apex/visualforce page
-	/http[s]?\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=(\w{15})/,	// Matches id for a User profile
-	/http[s]?\:\/\/.*\.lightning\.force\.com\/.*sObject\/(\w{18})\/.*/,
+	/http[s]?\:\/\/.*force\.com\/(\w{18})/,												// Matches id-18 for a standard salesforce page
+	/http[s]?\:\/\/.*force\.com\/(\w{15})/,												// Matches id-15 for a standard salesforce page
+	/http[s]?\:\/\/.*force\.com\/apex\/.*id=(\w{15})/,									// Matches id for an apex/visualforce page
+	/http[s]?\:\/\/.*force\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=(\w{15})/,	// Matches id for a User profile
+	/http[s]?\:\/\/.*force\.com\/.*sObject\/(\w{18})\/.*/,
 	
 ];
+
 LINK_RE = [
-	/(http[s]?\:\/\/.*\.salesforce\.com\/\w{18})/,												// Matches link (id-18) for a standard salesforce page
-	/(http[s]?\:\/\/.*\.salesforce\.com\/\w{15})/,												// Matches link (id-15) for a standard salesforce page
-	/(http[s]?\:\/\/.*\.salesforce\.com\/apex\/.*id=\w{15})/,									// Matches link for an apex/visualforce page
-	/(http[s]?\:\/\/.*\.salesforce\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=\w{15})/,	 	// Matches id for a User profile
-	/(http[s]?\:\/\/.*\.lightning\.force\.com\/.*sObject\/\w{18}\/view)/,
+	/(http[s]?\:\/\/.*force\.com\/\w{18})/,												// Matches link (id-18) for a standard salesforce page
+	/(http[s]?\:\/\/.*force\.com\/\w{15})/,												// Matches link (id-15) for a standard salesforce page
+	/(http[s]?\:\/\/.*force\.com\/apex\/.*id=\w{15})/,									// Matches link for an apex/visualforce page
+	/(http[s]?\:\/\/.*force\.com\/_ui\/core\/userprofile\/UserProfilePage\?u=\w{15})/,	 	// Matches id for a User profile
+	/(http[s]?\:\/\/.*force\.com\/.*sObject\/\w{18}\/view)/,
 	
 ];
 
