@@ -71,11 +71,12 @@ function extractLink(url) {
 }
 
 function setIds(currentId) {
-	id = currentId;
-	if(id.length == longIdLength) {
-		id18 = id;
+	//get Id and check to see if it's 18 chars, set truncated id if it is
+	if(currentId.length==longIdLength) {
+		id = currentId.substring(0,shortIdLength);
+		id18 = currentId;
 	} else {
-	
+		id = currentId;
 		id18 = "";
 		//thanks to Jeff Douglas for the 15 to 18 code
 		var suffix = "";
