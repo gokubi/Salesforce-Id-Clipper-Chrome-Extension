@@ -11,7 +11,7 @@
     "default_title" : "Salesforce ID CopyPaste"
   },
   "permissions": [
-    "tabs",
+    "activeTab",
     "contextMenus",
     "clipboardWrite",
     "clipboardRead",
@@ -26,15 +26,19 @@
     "copyRecordId": {
       "description": "Copy the record ID",
       "suggested_key": {
-        "default": "Shift+Ctrl+D",
-        "mac": "Shift+MacCtrl+D"
+        "default": "Alt+C"
       }
     },
     "pasteRecordId": {
-      "description": "Copy the record ID",
+      "description": "Paste the record ID",
       "suggested_key": {
-        "default": "Shift+Ctrl+D",
-        "mac": "Shift+MacCtrl+D"
+        "default": "Alt+V"
+      }
+    },
+    "pasteRecordIdToNewTab": {
+      "description": "Paste the record ID to a new Tab",
+      "suggested_key": {
+        "default": "Alt+B"
       }
     }
   }
