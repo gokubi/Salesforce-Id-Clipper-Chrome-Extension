@@ -1,27 +1,41 @@
-
 {
   "manifest_version": 2,
-  "name": "Salesforce.com Id Clipper",
-  "version": "3.2",
-  "description": "Helps you get Salesforce.com Ids from records and links to your clipboard",
+  "name": "Salesforce Id CopyPaste",
+  "version": "4.1",
+  "description": "Copy the current Salesforce record's ID to the clipboard, or paste your way to the record's page from where you are!",
   "background": {
     "scripts": ["background.js"]
   },
-  
-  "page_action" :
-  {
+  "page_action": {
     "default_icon" : "clipper.png",
-    "default_title" : "Clip this Id!"
+    "default_title" : "Salesforce ID CopyPaste"
   },
-  "permissions" : [
+  "permissions": [
     "tabs",
     "contextMenus",
     "clipboardWrite",
-    "http://*/",
-    "https://*/"
+    "clipboardRead",
+    "https://*.force.com/*",
+    "https://*.salesforce.com/*",
+    "https://*.cloudforce.com/*"
   ],
-  "icons":
-  {
+  "icons": {
   	"128": "clipper_128.png"
+  },
+  "commands": {
+    "copyRecordId": {
+      "description": "Copy the record ID",
+      "suggested_key": {
+        "default": "Shift+Ctrl+D",
+        "mac": "Shift+MacCtrl+D"
+      }
+    },
+    "pasteRecordId": {
+      "description": "Copy the record ID",
+      "suggested_key": {
+        "default": "Shift+Ctrl+D",
+        "mac": "Shift+MacCtrl+D"
+      }
+    }
   }
 }
