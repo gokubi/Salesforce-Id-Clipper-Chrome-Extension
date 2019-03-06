@@ -12,8 +12,8 @@ Copyright (c) 2019, Danny Summerlin
 Honestly, same.
 */
 ID_RE = [
-	/http[s]?\:\/\/.*force\.com\/.*(\w{18})[^\w]/, // tries to find the first 18 digit
-	/http[s]?\:\/\/.*force\.com\/.*(\w{15})[^\w]/ // falls back to 15 digit
+	/http[s]?\:\/\/.*force\.com\/.*([a-zA-Z0-9]{18})[^\w]/, // tries to find the first 18 digit
+	/http[s]?\:\/\/.*force\.com\/.*([a-zA-Z0-9]{15})[^\w]/ // falls back to 15 digit
 ]
 chrome.runtime.onInstalled.addListener(function() {
 	chrome.contextMenus.create({"title": "Copy Salesforce Id", "contexts" : ["page","link"], "onclick": copyToClipboard})
@@ -68,24 +68,25 @@ var copyToClipboard = function(link, fullUrl) {
 	}
 }
 var finishCopyToClipboard = function(targetUrl, fullUrl) {
-	var copyData = getIdFromUrl(targetUrl)
-	var cb = makeClipboard()
-	var action = ""
-	var width = "360px"
-	if(fullUrl === true) {
-		cb.textContent = cleanUrl(targetUrl, copyData)
-		action = "URL: " + cb.textContent
-		width = "600px"
-	}
-	else {
-		cb.textContent = copyData
-		action = "Id: <span style='font-weight:bold'>" + copyData +"</span>"
-	}
-	cb.select()
-	document.execCommand('copy')
-	cb.remove()
-	chrome.tabs.query({currentWindow: true, active: true}, function(tabs) {
-		chrome.tabs.executeScript(tabs[0].id, {code: `
+	var copyId = getIdFromUrl(targetUrl)
+	if(copyId != false) {
+		var cb = makeClipboard()
+		var action = ""
+		var width = "360px"
+		if(fullUrl === true) {
+			cb.textContent = cleanUrl(targetUrl, copyId)
+			action = "URL: " + cb.textContent
+			width = "600px"
+		}
+		else {
+			cb.textContent = copyId
+			action = "Id: <span style='font-weight:bold'>" + copyId +"</span>"
+		}
+		cb.select()
+		document.execCommand('copy')
+		cb.remove()
+		chrome.tabs.query({currentWindow: true, active: true}, function(tabs) {
+			chrome.tabs.executeScript(tabs[0].id, {code: `
 var alert = document.createElement("div")
 alert.style.backgroundColor = "#fff"
 alert.style.border = "1px solid #1589ee"
@@ -116,9 +117,10 @@ setTimeout(function() {
 		}, 2000)
 	}, 2000)
 }, 10)
-		`})
-	})
-	return true
+			`})
+		})
+		return true
+	} else { return false }
 }
 var getIdFromUrl = function(url) {
 	for(var i in ID_RE) {
