@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
   "name": "Salesforce Id CopyPasteGo",
-  "version": "1.4.9",
+  "version": "1.5.4",
   "description": "Copy the current Salesforce record's ID to the clipboard, or paste your way to the record's page from where you are!",
   "background": {
     "scripts": ["background.js"]
   },
   "page_action": {
-    "default_icon" : "images/sf-copypaste128.png",
+    "default_icon" : "images/sf-copypaste16.png",
     "default_title" : "Salesforce ID CopyPasteGo"
   },
   "permissions": [
