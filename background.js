@@ -130,10 +130,7 @@ var getIdFromUrl = function(url) {
 	return false
 }
 var cleanUrl = function(url, currentId) { return url.match(/.*force.com/)[0] + "/" + currentId }
-var extractList = (element)=>{
-	let rows = element
-	if(rows == undefined)
-		rows = document.querySelectorAll(".forceSearchResultsGridView tr")
+var extractList = (rows)=>{
 	let headers = []
 	Object.values(rows[0].children).forEach(e=>{
 		try { headers.push(e.querySelector("a").innerText.replace("SORT\n","")) }
@@ -170,4 +167,16 @@ var copyList = (element)=>{
 	cb.select()
 	document.execCommand('copy')
 	cb.remove()
+}
+var addCopyListButton = ()=>{
+	let lists = document.querySelectorAll(".searchResultsGridHeader")
+	let button = document.createElement("button")
+	button.innerText = "Copy List"
+	button.addEventListener("click", (e)=>{
+		copyList(e.target.closest(".forceSearchResultsGridView"))
+		return true
+	})
+	for (var i = 0; i < lists.length; i++) {
+		lists[i].appendChild(button)
+	}
 }
