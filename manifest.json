@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Salesforce Id CopyPasteGo",
-  "version": "1.5.4",
+  "version": "1.7.2",
   "description": "Copy the current Salesforce record's ID to the clipboard, or paste your way to the record's page from where you are!",
   "background": {
     "scripts": ["background.js"]
@@ -13,7 +13,9 @@
         "https://*.salesforce.com/*",
         "https://*.cloudforce.com/*"
       ],
-      "js": ["page.js"]
+      "all_frames": true,
+      "js": ["page.js"],
+      "run_at": "document_start"
     }
   ],
   "page_action": {

@@ -130,9 +130,3 @@ var getIdFromUrl = function(url) {
 	return false
 }
 var cleanUrl = function(url, currentId) { return url.match(/.*force.com/)[0] + "/" + currentId }
-
-chrome.tabs.onUpdated.addListener( (tabId, changeInfo, tab)=>{
-	if (changeInfo.status == 'complete' && tab.url != undefined) {
-		chrome.tabs.executeScript(tabId, {code: `addCopyListButtons()`})
-	}
-})
