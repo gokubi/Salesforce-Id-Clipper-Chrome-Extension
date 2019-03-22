@@ -6,6 +6,16 @@
   "background": {
     "scripts": ["background.js"]
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.force.com/*",
+        "https://*.salesforce.com/*",
+        "https://*.cloudforce.com/*"
+      ],
+      "js": ["page.js"]
+    }
+  ],
   "page_action": {
     "default_icon" : "images/sf-copypaste16.png",
     "default_title" : "Salesforce ID CopyPasteGo"
