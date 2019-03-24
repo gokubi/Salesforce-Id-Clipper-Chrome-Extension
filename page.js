@@ -39,11 +39,14 @@ var copyList = (element)=>{
 	copyPopup({label: "Visible Rows", mode: "show"})
 }
 var addCopyListButtons = ()=>{
-	let lists = document.querySelectorAll(".slds-table")
-	let LEX = true
-	if(lists.length == 0) {
-		LEX = false
+	let LEX = window.location.href.includes("lightning")
+	let lists
+	if(LEX)
+		lists = document.querySelectorAll(".slds-table")
+	else {
 		lists = document.querySelectorAll(".listBody")
+		if(lists.length == 0)
+			lists = document.querySelectorAll("table.list")
 	}
 	for (var i = 0; i < lists.length; i++) {
 		let button = document.createElement("button")
@@ -72,13 +75,19 @@ var addCopyListButtons = ()=>{
 				target = lists[i].closest(".forceSearchResultsGridView")
 		} else {
 			target = lists[i].closest(".listBody")
+			if(target == undefined) {
+				target = lists[i].closest(".pbBody")
+				button.style.top = "-1.75rem"
+				button.style.marginBottom = "-1rem"
+				button.style.position = "relative"
+			}
 		}
 		target.prepend(button)
 	}
 }
 let tableLoop = (tableCount)=>{
 	if(tableCount == undefined || tableCount < 1) {
-		let count = document.querySelectorAll(".slds-table").length + document.querySelectorAll(".listBody").length
+		let count = document.querySelectorAll(".slds-table").length + document.querySelectorAll(".listBody").length + document.querySelectorAll("table.list").length
 		setTimeout(()=>tableLoop(count), 50)
 	} else
 		addCopyListButtons()
