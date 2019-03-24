@@ -2,7 +2,10 @@ var extractList = (rows)=>{
 	let headers = []
 	Object.values(rows[0].children).forEach(e=>{
 		try {
-			headers.push(e.innerText.match(/\n([\w ]+)\n*/)[1])
+			if(window.location.href.includes("lightning"))
+				headers.push(e.innerText.match(/\n([\w ]+)\n*/)[1])
+			else
+				headers.push(e.innerText)
 		} catch(er) { headers.push("") }
 	})
 	let exportList = [headers]
@@ -27,7 +30,7 @@ var copyList = (element)=>{
 	for (var i = 1; i < items.length; i++) {
 		let item = []
 		for (var j = 0; j < headers.length; j++) {
-			if(headers[j] != "")
+			if(!["", "Action"].includes(headers[j]))
 				item.push(items[i][ headers[j] ])
 		}
 		output += item.join("\t") + "\n"
@@ -37,28 +40,45 @@ var copyList = (element)=>{
 }
 var addCopyListButtons = ()=>{
 	let lists = document.querySelectorAll(".slds-table")
+	let LEX = true
+	if(lists.length == 0) {
+		LEX = false
+		lists = document.querySelectorAll(".listBody")
+	}
 	for (var i = 0; i < lists.length; i++) {
 		let button = document.createElement("button")
-		button.classList = "slds-button slds-button--neutral"
-		button.style.top = "0.5rem"
-		button.style.left = "50%"
 		button.style.position = "absolute"
-		button.style.paddingRight = "25px"
+		if(LEX) {
+			button.style.top = "0.5rem"
+			button.classList = "slds-button slds-button--neutral"
+			button.style.left = "50%"
+			button.style.paddingRight = "25px"
+		} else {
+			button.style.top = "-2.1rem"
+			button.classList = ""
+			button.style.left = "90%"
+			button.style.padding = "5px 25px 5px 5px"
+		}
 		button.style.backgroundImage = "url('" + chrome.extension.getURL("images/sf-copypaste16.png") + "')"
 		button.style.backgroundPosition = "95% center"
 		button.style.backgroundRepeat = "no-repeat"
 		button.innerText = "Copy List"
-		button.addEventListener("click", (e)=>{ copyList(e.target.parentElement.querySelector("table").querySelectorAll("tr"));return false })
 		button.id = "copyList" + i
-		let target = lists[i].closest(".forceListViewManager")
-		if(target == undefined)
-			target = lists[i].closest(".forceSearchResultsGridView")
+		button.addEventListener("click", (e)=>{ e.preventDefault(); copyList(e.target.parentElement.querySelectorAll("tr"));return false })
+		let target
+		if(LEX) {
+			target = lists[i].closest(".forceListViewManager")
+			if(target == undefined)
+				target = lists[i].closest(".forceSearchResultsGridView")
+		} else {
+			target = lists[i].closest(".listBody")
+		}
 		target.prepend(button)
 	}
 }
 let tableLoop = (tableCount)=>{
 	if(tableCount == undefined || tableCount < 1) {
-		let count = document.querySelectorAll(".slds-table").length
+		let count = document.querySelectorAll(".slds-table").length + document.querySelectorAll(".listBody").length
 		setTimeout(()=>tableLoop(count), 50)
 	} else
 		addCopyListButtons()
