@@ -4,7 +4,10 @@
   "version": "1.7.2",
   "description": "Copy the current Salesforce record's ID to the clipboard, or paste your way to the record's page from where you are!",
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "shared.js",
+      "background.js"
+    ]
   },
   "content_scripts": [
     {
@@ -14,7 +17,10 @@
         "https://*.cloudforce.com/*"
       ],
       "all_frames": true,
-      "js": ["page.js"],
+      "js": [
+        "shared.js",
+        "page.js"
+      ],
       "run_at": "document_start"
     }
   ],
@@ -30,6 +36,11 @@
     "https://*.force.com/*",
     "https://*.salesforce.com/*",
     "https://*.cloudforce.com/*"
+  ],
+  "web_accessible_resources": [
+    "images/sf-copypaste128.png",
+    "images/sf-copypaste48.png",
+    "images/sf-copypaste16.png"
   ],
   "icons": {
     "128": "images/sf-copypaste128.png",
