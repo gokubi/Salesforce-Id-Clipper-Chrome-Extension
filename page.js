@@ -39,6 +39,7 @@ var copyList = (element)=>{
 	copyPopup({label: "Visible Rows", mode: "show"})
 }
 var addCopyListButtons = ()=>{
+	document.querySelectorAll(".copyPasteGoButton").forEach(b=>{b.remove()})
 	let LEX = window.location.href.includes("lightning")
 	let lists
 	if(LEX)
@@ -53,12 +54,12 @@ var addCopyListButtons = ()=>{
 		button.style.position = "absolute"
 		if(LEX) {
 			button.style.top = "0.5rem"
-			button.classList = "slds-button slds-button--neutral"
+			button.classList = "slds-button slds-button--neutral copyPasteGoButton"
 			button.style.left = "50%"
 			button.style.paddingRight = "25px"
 		} else {
 			button.style.top = "-2.1rem"
-			button.classList = ""
+			button.classList = "copyPasteGoButton"
 			button.style.left = "90%"
 			button.style.padding = "5px 25px 5px 5px"
 		}
@@ -82,14 +83,20 @@ var addCopyListButtons = ()=>{
 				button.style.position = "relative"
 			}
 		}
-		target.prepend(button)
+		if(target != undefined)
+			target.prepend(button)
 	}
 }
-let tableLoop = (tableCount)=>{
-	if(tableCount == undefined || tableCount < 1) {
-		let count = document.querySelectorAll(".slds-table").length + document.querySelectorAll(".listBody").length + document.querySelectorAll("table.list").length
-		setTimeout(()=>tableLoop(count), 50)
-	} else
-		addCopyListButtons()
+let tableLoop = (tableCount, manualDelay)=>{
+	if(manualDelay != undefined)
+		setTimeout(()=>tableLoop(), manualDelay)
+	else
+		if(tableCount == undefined || tableCount < 1) {
+			let count = document.querySelectorAll(".slds-table").length + document.querySelectorAll(".listBody").length + document.querySelectorAll("table.list").length
+			setTimeout(()=>tableLoop(count), 50)
+		} else {
+			document.querySelectorAll(".bBottom a.dndItem").forEach((l)=>{ l.addEventListener('click', ()=>tableLoop(0, 300)) })
+			addCopyListButtons()
+		}
 }
 document.addEventListener("DOMContentLoaded", ()=>tableLoop())
